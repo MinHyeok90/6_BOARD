@@ -1,2 +1,23 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<div class="container">
+    <form style="margin-top:30px" action="/home/write" method="POST">
+      <div class="form-group">
+        <input type="text" name="title" class="form-control" placeholder="제목">
+      </div>
+      <div class="form-group">
+        <textarea name="content" class="form-control" rows="5" placeholder="내용"></textarea>
+      </div>
+      <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+<% @posts.each do |post| %>
+  <div class="well">
+      <span style="font-weight:bold"><%= post.title %></span><br>
+      <%= post.content %><br>
+      <form style="margin-top:30px" action="/home/write" method="POST">
+      <div class="form-group">
+        <textarea name="content" class="form-control" rows="5" placeholder="내용"></textarea>
+      </div>
+      <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+  </div>
+<%end%>
+</div>
