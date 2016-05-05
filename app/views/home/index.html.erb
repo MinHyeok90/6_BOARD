@@ -12,10 +12,13 @@
   <div class="well">
       <span style="font-weight:bold"><%= post.title %></span><br>
       <%= post.content %><br>
-      <form style="margin-top:30px" action="/home/write" method="POST">
-      <div class="form-group">
+      
+    <% post.replies.each do |r| %>
+      <%=r.content%><br>
+    <%end%>
+      <form style="margin-top:30px" action="/home/reply_write" method="POST">
+        <input type="hidden" value="<%=post.id%>" name="id_of_post">
         <textarea name="content" class="form-control" rows="5" placeholder="내용"></textarea>
-      </div>
       <button type="submit" class="btn btn-default">Submit</button>
     </form>
   </div>

@@ -10,4 +10,12 @@ class HomeController < ApplicationController
     post.save
     redirect_to "/home/index"
   end
+  
+  def reply_write
+    reply = Reply.new
+    reply.content = params[:content]
+    reply.post_id = params[:id_of_post]
+    reply.save
+    redirect_to "/home/index"
+  end
 end
