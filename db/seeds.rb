@@ -5,3 +5,16 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+# Post.create(title: '안녕하세요', content: '첫 글입니다.')
+# Reply.create(content: '첫 리플입니다.', post_id: 1)
+
+new_post = Post.new
+new_post.title = "안녕하세요."
+new_post.content = "이래도 됩니다."
+new_post.save
+
+reply = Reply.new
+reply.content = "첫 댓글입니다!"
+reply.post = new_post
+reply.save

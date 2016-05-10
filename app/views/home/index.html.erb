@@ -12,15 +12,32 @@
   <div class="well">
       <span style="font-weight:bold"><%= post.title %></span><br>
       <%= post.content %><br>
-      
-    <% post.replies.each do |r| %>
-      <%=r.content%><br>
-    <%end%>
-      <form style="margin-top:30px" action="/home/reply_write" method="POST">
-        <input type="hidden" value="<%=post.id%>" name="id_of_post">
-        <textarea name="content" class="form-control" rows="5" placeholder="내용"></textarea>
-      <button type="submit" class="btn btn-default">Submit</button>
-    </form>
+      <span id="reply_<%=post.id%>">
+        <% post.replies.each do |r| %>
+          <%=r.content%><br>
+        <%end%>
+      </span>
+        <textarea name="content" class="form-control" id="content_<%=post.id%>" rows="5" placeholder="내용"></textarea>
+        <button value="<%=post.id%>" type="submit" class="btn btn-default reply_submit">Submit</button>
   </div>
 <%end%>
 </div>
+<script>
+//reply_submit이란 녀석이 클릭이 되면, 아래 코드를 돌립니다.
+$('.reply_submit').click(function(){
+  post_id = this.value
+  post_content = $("#content_" + post_id).val();
+  $.ajax({
+    method: "POST",
+    url: "/home/reply_write",
+    data: { content: post_content, id_of_post: post_id}
+  })
+    .done(function( msg ) {
+      //alert( "리플이 작성되었음" );
+      $("#reply_" + post_id).append( post_content+ "<br>")
+      $("#content_" + post_id).val("")
+      $("#content_" + post_id).attr("placeholder","리플이 작성되었음.")
+
+  });
+});
+</script>
